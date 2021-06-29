@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse('Pagina index da rota 12')
+    return render(request, 'home/index.html')
 
 def login(request):
     return HttpResponse('Pagina de login')

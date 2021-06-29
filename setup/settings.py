@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'rota12.apps.Rota12Config',
+    #'rota12.apps.Rota12Config',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

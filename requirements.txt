@@ -15,3 +15,4 @@ toml
 typed-ast
 wrapt
 validate_docbr
+django-filter

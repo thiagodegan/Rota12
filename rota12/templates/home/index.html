@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>Hello from the fucking template!!</h2>
+
+<div id='widgetsGrid'>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#widgetsGrid').kendoGrid({
+            columns: [
+                {
+                field: 'name',
+                title: 'Name'
+                },
+                {
+                field: 'description',
+                title: 'Description'
+                },
+                {
+                field: 'url',
+                title: 'Url',
+                template: "<a href='${ url }'>${ url }</a>"
+                }
+            ],
+            height: 500,
+            sortable: true,
+            pageable: true
+            });
+    });
+</script>
+
+{% endblock %}

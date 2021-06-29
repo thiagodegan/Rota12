@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <link href='/static/kendo-ui/styles/kendo.common.min.css' rel='stylesheet' type="text/css" />
+        <link href='/static/kendo-ui/styles/kendo.default.min.css' rel='stylesheet' type="text/css" />
+    </head>
+    <body>
+        <div id="content">
+            <div id="appBar"></div>
+            {% block content %} {% endblock %}
+        </div>
+
+        <script type='text/javascript' src='/static/kendo-ui/js/jquery.min.js'></script>
+        <script type='text/javascript' src='/static/kendo-ui/js/kendo.all.min.js'></script>
+        <script type="text/javascript" src="/static/js/layout.js"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>
