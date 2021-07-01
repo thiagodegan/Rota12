@@ -1,0 +1,9 @@
+.mainBox {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.boxCol {
+    flex: 1
+}

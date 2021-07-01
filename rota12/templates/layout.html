@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
-        <link href='/static/kendo-ui/styles/kendo.common.min.css' rel='stylesheet' type="text/css" />
-        <link href='/static/kendo-ui/styles/kendo.default.min.css' rel='stylesheet' type="text/css" />
+        <link rel='stylesheet' href='/static/kendo-ui/styles/kendo.common.min.css' />
+        <link rel='stylesheet' href='/static/kendo-ui/styles/kendo.default.min.css' />
+        <link rel="stylesheet" href="/static/kendo-ui/styles/kendo.default.mobile.min.css" />
+        <link rel="stylesheet" href="/static/css/layout.css" />
+        {% block styles %}{% endblock %}
     </head>
     <body>
         <div id="content">
             <div id="appBar"></div>
-            {% block content %} {% endblock %}
+            <div class="k-content">
+                {% block content %}{% endblock %}
+            </div>
         </div>
 
         <script type='text/javascript' src='/static/kendo-ui/js/jquery.min.js'></script>
         <script type='text/javascript' src='/static/kendo-ui/js/kendo.all.min.js'></script>
         <script type="text/javascript" src="/static/js/layout.js"></script>
         {% block scripts %}{% endblock %}
+
+        <footer>
+            <div class="footerBox">
+                <div><p>&copy;ROTA12 2021. Todos direitos reservados.</p></div>
+                <div><p>Desenvolvido por <a href="#">TDMI Solu&ccedil;&otilde;es</a></p></div>
+            </div>
+        </footer>
     </body>
 </html>
