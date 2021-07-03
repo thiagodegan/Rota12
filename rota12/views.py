@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def index(request):
-    return render(request, 'home/index.html')
+    return render(request, 'index.html')
 
 def login(request):
     return HttpResponse('Pagina de login')

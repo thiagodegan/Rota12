@@ -1,0 +1,80 @@
+/* ============================= 
+    PRICING-5 CSS
+================================ */
+
+.pricing-style-5 {
+  padding: 100px 0;
+  background: #F3F3F3;
+
+  .single-pricing {
+    background: $white;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    padding: 45px 40px;
+    border: 1px solid transparent;
+    @include transition(.3s);
+    position: relative;
+    text-align: center;
+    @include box-shadow(0px 0px 30px rgba(218, 211, 211, 0.42));
+
+    @media #{$lg} {
+      padding: 45px 25px;
+    }
+
+    &.active {
+      @include transform(scale(1.15));
+      z-index: 9;
+
+      @media #{$md, $xs} {
+        @include transform(scale(1));
+      } 
+    }
+
+    .image {
+      width: 120px;
+      height: 120px;
+      background: #EBF4FF;
+      border-radius: 50%;
+      margin: auto;
+      margin-bottom: 30px;
+      @include flex-center;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    h6 {
+      color: $body-color;
+      margin-bottom: 15px;
+
+      @media #{$lg} {
+        font-size: 16px;
+      }
+    }
+
+    h4 {
+      margin-bottom: 20px;
+      font-weight: 500;
+
+      @media #{$lg} {
+        font-size: 24px;
+      }
+    }
+
+    h3 {
+      margin-bottom: 18px;
+      color: $primary-color;
+    }
+
+    ul {
+      margin-bottom: 30px;
+
+      li {
+        font-size: 16px;
+        line-height: 34px;
+        margin-bottom: 12px;
+      }
+    }
+  }
+}

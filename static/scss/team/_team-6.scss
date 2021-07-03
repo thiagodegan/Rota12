@@ -1,0 +1,53 @@
+/* ============================= 
+    TEAM-6 CSS
+================================ */
+
+.team-style-6 {
+  padding: 100px 0 70px;
+  background: #e5e5e5;
+
+
+  .single-team {
+    text-align: center;
+    margin-bottom: 30px;
+    @include transition(.3s);
+
+    &:hover {
+
+      .info {
+        @include box-shadow($box-shadow-2);
+      }
+    }
+
+    .image {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: auto;
+      padding: 0 30px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .info {
+      background: $white;
+      border-radius: 10px;
+      padding: 145px 30px 30px;
+      margin-top: -115px;
+      @include transition(.3s);
+      border-bottom: 5px solid transparent;
+       
+      h6 {
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

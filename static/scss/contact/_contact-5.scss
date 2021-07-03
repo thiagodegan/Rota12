@@ -1,0 +1,129 @@
+/* ============================= 
+    CONTACT-5 CSS
+================================ */
+
+.contact-style-5 {
+  background: #F3F3F3;
+  padding: 100px 0 70px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: -1;
+    width: 42%;
+    background: #EBF4FF;
+
+    @media #{$md, $xs} {
+      width: 100%;
+    }
+  }
+
+  .contact-form-wrapper {
+
+    form {
+
+      .single-input {
+        position: relative;
+        margin-bottom: 20px;
+
+        label {
+          display: block;
+          width: 100%;
+          margin-bottom: 10px;
+        }
+
+        textarea,
+        input {
+          background: transparent;
+          border-radius: 0px;
+          position: relative;
+          padding-right: 0px;
+          padding-left: 30px;
+          width: 100%;
+          border: none;
+          border-bottom: 1px solid $body-color;
+          @include transition(.3s);
+
+
+          &::placeholder {
+            font-weight: 300;
+            opacity: 1;
+            color: 585978;
+          }
+
+          &:focus {
+            border-color: $primary-color;
+          }
+        }
+
+        input {
+          height: 56px;
+        }
+
+        textarea {
+          padding: 15px 0px;
+          padding-left: 30px;
+          resize: none;
+        }
+
+        i {
+          position: absolute;
+          left: 0px;
+          top: 20px;
+        }
+      }
+
+      .form-button {
+        padding-top: 10px;
+
+        button {
+          height: 56px;
+          border-radius: 5px;
+
+          i {
+            padding-left: 0;
+            padding-right: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  .right-wrapper {
+    @media #{$desktop} {
+      margin-right: 50px;
+    }
+    @media #{$laptop} {
+      margin-right: 40px;
+    }
+    @media #{$lg} {
+      margin-right: 20px;
+    }
+
+    .single-item {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      @include transition(.3s);
+  
+      .icon {
+        max-width: 54px;
+        width: 100%;
+        height: 54px;
+        border-radius: 50%;
+        background: $primary-color;
+        color: $white;
+        margin-right: 20px;
+        @include flex-center;
+        font-size: 24px;
+      }
+    }
+  }
+
+}
