@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="no-js" lang="pt-br">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -9,41 +9,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.svg' %}"/>
 
-    <link rel="stylesheet" href="{% static 'css/bootstrap-5.0.0-beta1.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/LineIcons.2.0.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/animate.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/lindy-uikit.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/base-style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/site.css' %}" />
 </head>
 <body>
-    <div class="preloader">
-      <div class="loader">
-        <div class="spinner">
-          <div class="spinner-container">
-            <div class="spinner-rotator">
-              <div class="spinner-left">
-                <div class="spinner-circle"></div>
-              </div>
-              <div class="spinner-right">
-                <div class="spinner-circle"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!--<div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/pizza.png' %}" alt="">
+    </div>-->
+
+    {% include 'partials/_menu.html' %}
+
+    <main class="flex-shrink-0">
+      <div class="container">
+      {% block content %}{% endblock content %}
       </div>
-    </div>
+    </main>
 
-    {% block content %}{% endblock content %}
-
-    <script src="{% static 'js/bootstrap-5.0.0-beta1.min.js' %}"></script>
-    <script src="{% static 'js/tiny-slider.js' %}"></script>
-    <script src="{% static 'js/count-up.min.js' %}"></script>
-    <script src="{% static 'js/imagesloaded.min.js' %}"></script>
-    <script src="{% static 'js/isotope.min.js' %}"></script>
-    <script src="{% static 'js/glightbox.min.js' %}"></script>
-    <script src="{% static 'js/wow.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+    {% include 'partials/_footer.html' %}
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

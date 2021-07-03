@@ -1,33 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-{% include 'partials/_menu.html' %}
 
-<section class="hero-section-wrapper hero-section-wrapper-4">   
-<div class="hero-section hero-style-4">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="hero-content-wrapper">
-                <h2 class="mb-30">Ready for any web projects</h2>
-                <p class="mb-30">We’re a design studio that creates beautiful digital products, brands and experiences for amazing companies and disruptive startups.</p>
-                <a href="#0" class="button button-lg radius-50">Get Start <i class="lni lni-chevron-right"></i> </a>
-              </div>
-            </div>
-            <div class="col-lg-6 align-self-end">
-              <div class="hero-image">
-                <img src="{% static 'img/hero/hero-4/hero-img.svg' %}" alt="">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="shapes">
-          <img src="{% static 'img/hero/hero-4/shape-1.svg' %}" alt="" class="shape shape-1">
-          <img src="{% static 'img/hero/hero-4/shape-2.svg' %}" alt="" class="shape shape-2">
-          <img src="{% static 'img/hero/hero-4/shape-3.svg' %}" alt="" class="shape shape-3">
-        </div>
-      </div>
-</section>
+<h1>Home page</h1>
 
-{% include 'partials/_footer.html' %}
+{% if user.is_authenticated %}
+<p>{{ user.username }}</p>
+{% endif %}
+
 {% endblock content %}
