@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Rota 12</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.svg' %}"/>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/site.css' %}" />
+</head>
+<body>
+    <!--<div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/pizza.png' %}" alt="">
+    </div>-->
+
+    {% include 'partials/_menu.html' %}
+
+    <main class="flex-shrink-0">
+      <div class="container">
+      {% block content %}{% endblock content %}
+      </div>
+    </main>
+
+    {% include 'partials/_footer.html' %}
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
