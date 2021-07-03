@@ -20,11 +20,11 @@ MIDDLEWARE = [
 ]
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'static')
-]
+#STATICFILES_DIRS = [
+#    os.path.join(PROJECT_ROOT, 'static')
+#]
 
 # DBHOST is only the server name, not the full URL
 hostname = os.environ['DBHOST']
