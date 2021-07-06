@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="form-signin">
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+        <div class="form-floating">
+            <input type="email" class="form-control {% if erro %}is-invalid{% endif %}" id="floatingInput" name="email" placeholder="nome@examplo.com" required
+                {% if email %}
+                value="{{ email }}"
+                {% else %}
+                {% endif %}
+            >
+            <label for="floatingInput">Email</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="password" class="form-control {% if erro %}is-invalid{% endif %}" id="floatingPassword" name="password" placeholder="Senha" required
+                {% if senha %}
+                value="{{ senha }}"
+                {% endif %}
+            >
+            <label for="floatingPassword">Senha</label>
+            {% if erro %}
+            <div id="validationServerNomeFeedback" class="invalid-feedback">
+                {{ erro }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-lg" href="{% url 'cadastro' %}">Registrar</a>
+            </div>
+            <div class="col-6">
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
