@@ -1,7 +1,7 @@
 from django.http import request
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 # Create your views here.
 def cadastro(request):
@@ -79,7 +79,31 @@ def cadastro(request):
         return render(request, 'usuarios/cadastro.html')
 
 def login(request):
-    return render(request, 'index.html')
+    print('Entrou no login')
+    if request.method == 'POST':
+        print('Entrou no login como POST')
+        email = request.POST['email']
+        senha = request.POST['password']
+        user = authenticate(request, username=email, password=senha)
+        if user is not None:
+            print('Encontrou o usuario')
+            auth_login(request, user)
+            return redirect('index')
+        else:
+            dados = {
+                'email': email,
+                'password': senha,
+                'erro': 'Email ou senha inválidos'
+            }
+            print(dados)
+            return render(request, 'usuarios/login.html', dados)
+    else:
+        print('Entrou no login como GET')
+        return render(request, 'usuarios/login.html')
 
 def logout(request):
-    pass
+    auth_logout(request)
+    return redirect('index')
+
+def perfil(request):
+    render(request, 'index.html')
