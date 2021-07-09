@@ -23,6 +23,7 @@ class Entidade(models.Model):
     TipoEntidade = models.CharField(max_length=1, choices=TIPO_ENTIDAE, blank=False, null=False, default='R')
     Email = models.CharField(max_length=300)
     Telefone = models.CharField(max_length=15) # FORMATO (DD) 91234-5678
+    Saldo = models.DecimalField(max_digits=15, decimal_places=2, null=False, blank=False, default=0)
 
     def __str__(self):
         return self.Nome
