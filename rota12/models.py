@@ -34,3 +34,14 @@ class EntidadeUser(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         )
+
+class Parametros(models.Model):
+    Codigo = models.IntegerField(default=0, blank=False, null=False)
+    Acesso = models.CharField(max_length=100, blank=False, null=False, default='ACESSO')
+    Conteudo = models.CharField(max_length=500, blank=False, null=False, default='CONTEUDO')
+    ValorUm = models.DecimalField(max_digits=15, decimal_places=2, null=False, blank=False, default=0)
+    ValorDois = models.DecimalField(max_digits=15, decimal_places=2, null=False, blank=False, default=0)
+    ValorTres = models.DecimalField(max_digits=15, decimal_places=2, null=False, blank=False, default=0)
+
+    def __str__(self):
+        return self.Codigo
