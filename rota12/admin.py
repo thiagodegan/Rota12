@@ -31,3 +31,13 @@ class Parametros(admin.ModelAdmin):
     search_fields = ('Codigo', 'Acesso')
 
 admin.site.register(Parametro, Parametros)
+
+class Extratos(admin.ModelAdmin):
+    list_display = (
+        'id', 'Entidade', 'Data', 'Descricao', 'CreditoDebito', 'Valor',
+    )
+    list_display_links = ('id', 'Entidade', 'Data')
+    search_fields = ('Entidade__Nome', 'Data')
+    list_per_page = 20
+
+admin.site.register(Extrato, Extratos)

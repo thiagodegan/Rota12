@@ -44,4 +44,19 @@ class Parametro(models.Model):
     ValorTres = models.DecimalField(max_digits=15, decimal_places=2, null=False, blank=False, default=0)
 
     def __str__(self):
-        return self.Codigo
+        return self.Acesso
+
+class Extrato(models.Model):
+    CREDITO_DEBITO = (
+        ('C', 'Crédito'),
+        ('D', 'Débito')
+    )
+    Entidade = models.ForeignKey(Entidade, on_delete=models.CASCADE)
+    Data = models.DateTimeField(auto_now=True, null=False, blank=False)
+    Descricao = models.CharField(max_length=500, blank=False, null=False)
+    CreditoDebito = models.CharField(max_length=1, choices=CREDITO_DEBITO, blank=False, null=False, default='C')
+    Valor = models.DecimalField(max_digits=15, decimal_places=2, null=False, blank=False, default=0)
+
+    def __str__(self):
+        return self.Descricao
+    
