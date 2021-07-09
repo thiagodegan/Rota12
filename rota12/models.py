@@ -35,7 +35,7 @@ class EntidadeUser(models.Model):
         on_delete=models.CASCADE,
         )
 
-class Parametros(models.Model):
+class Parametro(models.Model):
     Codigo = models.IntegerField(default=0, blank=False, null=False)
     Acesso = models.CharField(max_length=100, blank=False, null=False, default='ACESSO')
     Conteudo = models.CharField(max_length=500, blank=False, null=False, default='CONTEUDO')
