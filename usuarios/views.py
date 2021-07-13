@@ -2,6 +2,8 @@ from django.http import request
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
+from rota12.models import Entidade
 
 # Create your views here.
 def cadastro(request):
@@ -84,10 +86,13 @@ def login(request):
         print('Entrou no login como POST')
         email = request.POST['email']
         senha = request.POST['password']
+        next = request.POST['next']
         user = authenticate(request, username=email, password=senha)
         if user is not None:
             print('Encontrou o usuario')
             auth_login(request, user)
+            if next.strip():
+                return redirect(next)
             return redirect('index')
         else:
             dados = {
@@ -105,5 +110,23 @@ def logout(request):
     auth_logout(request)
     return redirect('index')
 
+@login_required
 def perfil(request):
-    render(request, 'index.html')
+    if request.method == 'POST':
+        nome = request.POST['username']
+        tipopessoa = request.POST['tipopessoa']
+        cnpj = request.POST['cnpjcpf']
+        cep = request.POST['cep']
+        estado = request.POST['estado']
+        cidade = request.POST['cidade']
+        endereco = request.POST['endereco']
+        telefone = request.POST['telefone']
+
+        user = request.user
+
+        user.username = nome
+        user.entidade.Nome = nome
+        user.save()
+        user.entidade.save()
+    
+    return render(request, 'usuarios/perfil.html')

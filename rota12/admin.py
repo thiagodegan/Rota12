@@ -15,14 +15,6 @@ class Entidades(admin.ModelAdmin):
 
 admin.site.register(Entidade, Entidades)
 
-class EntidadeUsers(admin.ModelAdmin):
-    list_display = (
-        'id', 'Entidade', 'User'
-    )
-    list_display_links = ('id','Entidade', 'User')
-
-admin.site.register(EntidadeUser, EntidadeUsers)
-
 class Parametros(admin.ModelAdmin):
     list_display = (
         'id', 'Codigo', 'Acesso', 'Conteudo', 'ValorUm', 'ValorDois', 'ValorTres',

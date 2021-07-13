@@ -134,3 +134,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = ['rota12.emailBackend.EmailBackend']
+
+LOGIN_URL = 'login'
