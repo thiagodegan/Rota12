@@ -71,6 +71,8 @@ def cadastro(request):
         else:
             user = User.objects.create_user(username=nome, email=email, password=senha)
             user.save()
+            entidade = Entidade.objects.create(Nome=nome, Email=email, Saldo = 0, User=user)
+            entidade.save()
             user = authenticate(request, username=email, password=senha)
             if user is not None:
                 auth_login(request, user)
