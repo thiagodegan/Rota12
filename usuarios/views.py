@@ -159,31 +159,31 @@ def perfil(request):
             cnpj_IsValid = False
             cnpj_message = "Informe o CNPJ/CPF"
         elif tipopessoa == "F":
-            # TODO: VALIDA SE É UM CPF VÁLIDO
+            # TODO: #18 VALIDA SE É UM CPF VÁLIDO
             pass
         elif tipopessoa == "J":
-            # TODO: VALIDA SE É UM CNPJ VÁLIDO
+            # TODO: #19 VALIDA SE É UM CNPJ VÁLIDO
             pass
         
         if not cep.strip():
             cep_IsValid = False
             cep_message = "Informe o CEP"
         else:
-            # TODO: VERIFICAR SE É POSSÍVEL VALIDAR O CEP
+            # TODO: #20 VERIFICAR SE É POSSÍVEL VALIDAR O CEP
             pass
 
         if not estado.strip():
             estado_IsValid = False
             estado_message = "Informe o Estado"
         else:
-            # TODO: VERIFICAR SE É POSSÍVEL VALIDAR O ESTADO
+            # TODO: #21 VERIFICAR SE É POSSÍVEL VALIDAR O ESTADO
             pass
 
         if not cidade.strip():
             cidade_IsValid = False
             cidade_message = "Informe a Cidade"
         else:
-            # TODO: VERIFICAR SE É POSSÍVEL VALIDAR A CIDADE
+            # TODO: #22 VERIFICAR SE É POSSÍVEL VALIDAR A CIDADE
             pass
 
         if not bairro.strip():
