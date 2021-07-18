@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    {% include 'partials/_sidebar.html' %}
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Alterar Senha</h4>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{% url 'alterasenha' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="email" class="col-4 col-form-label">Email:</label> 
+                                <div class="col-8">
+                                    <input id="email" name="email" placeholder="Email" class="form-control here {% if email_IsValid %}{{ email_IsValid }}{% endif %}" required="required" type="email" 
+                                    {% if email %}
+                                    value = "{{ email }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Email }}"
+                                    {% endif %}>
+                                    {% if email and email_message != '' %}
+                                    <div id="validationServerEmailFeedback" class="invalid-feedback">
+                                        {{ email_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-4 col-form-label">Senha:</label> 
+                                <div class="col-8">
+                                    <input id="password" name="password" placeholder="Senha" class="form-control here {% if senha_IsValid %}{{ senha_IsValid }}{% endif %}" required="required" type="password"
+                                    {% if senha %}
+                                    value = "{{ senha }}"
+                                    {% endif %}
+                                    >
+                                    {% if senha and senha_message != '' %}
+                                    <div class="invalid-feedback">
+                                        {{ senha_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="confpassword" class="col-4 col-form-label">Confirma Senha:</label> 
+                                <div class="col-8">
+                                    <input id="confpassword" name="confpassword" placeholder="Confirma Senha" class="form-control here {% if senha2_IsValid %}{{ senha2_IsValid }}{% endif %}" required="required" type="password"
+                                    {% if senha2 %}
+                                    value="{{ senha2 }}"
+                                    {% endif %}>
+                                    {% if senha2 and senha2_message != '' %}
+                                    <div class="invalid-feedback">
+                                        {{ senha2_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-4 col-8">
+                                  <button name="submit" type="submit" class="btn btn-primary">Atualizar</button>
+                                </div>
+                              </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        $('#mnSenha').addClass("active");
+    });
+</script>
+{% endblock %}

@@ -121,14 +121,201 @@ def perfil(request):
         cep = request.POST['cep']
         estado = request.POST['estado']
         cidade = request.POST['cidade']
+        bairro = request.POST['bairro']
         endereco = request.POST['endereco']
         telefone = request.POST['telefone']
+
+        nome_IsValid = True
+        nome_message = ""
+        tipopessoa_IsValid = True
+        tipopessoa_message = ""
+        cnpj_IsValid = True
+        cnpj_message = ""
+        cep_IsValid = True
+        cep_message = ""
+        estado_IsValid = True
+        estado_message = ""
+        cidade_IsValid = True
+        cidade_message = ""
+        bairro_IsValid = True
+        bairro_message = True
+        endereco_IsValid = True
+        endereco_message = ""
+        telefone_IsValid = True
+        telefone_message = ""
+
+        if not nome.strip():
+            nome_IsValid = False
+            nome_message = "Informe o Nome"
+        
+        if not tipopessoa.strip():
+            tipopessoa_IsValid = False
+            tipopessoa_message = "Selecione o Tipo de Pessoa"
+        elif tipopessoa != "F" and tipopessoa != "J":
+            tipopessoa_IsValid = False
+            tipopessoa_message = "Tipo de Pessoa Inválido"
+
+        if not cnpj.strip():
+            cnpj_IsValid = False
+            cnpj_message = "Informe o CNPJ/CPF"
+        elif tipopessoa == "F":
+            # TODO: VALIDA SE É UM CPF VÁLIDO
+            pass
+        elif tipopessoa == "J":
+            # TODO: VALIDA SE É UM CNPJ VÁLIDO
+            pass
+        
+        if not cep.strip():
+            cep_IsValid = False
+            cep_message = "Informe o CEP"
+        else:
+            # TODO: VERIFICAR SE É POSSÍVEL VALIDAR O CEP
+            pass
+
+        if not estado.strip():
+            estado_IsValid = False
+            estado_message = "Informe o Estado"
+        else:
+            # TODO: VERIFICAR SE É POSSÍVEL VALIDAR O ESTADO
+            pass
+
+        if not cidade.strip():
+            cidade_IsValid = False
+            cidade_message = "Informe a Cidade"
+        else:
+            # TODO: VERIFICAR SE É POSSÍVEL VALIDAR A CIDADE
+            pass
+
+        if not bairro.strip():
+            bairro_IsValid = False
+            bairro_message = "Informe o Bairro"
+
+        if not endereco.strip():
+            endereco_IsValid = False
+            endereco_message = "Informe o Endereço"
+
+        if not telefone.strip():
+            telefone_IsValid = False
+            telefone_message = "Informe o Telefone"
+
+        if (not nome_IsValid or 
+            not tipopessoa_IsValid or
+            not cnpj_IsValid or
+            not cep_IsValid or
+            not estado_IsValid or
+            not cidade_IsValid or
+            not bairro_IsValid or
+            not endereco_IsValid or
+            not telefone_IsValid):
+            dados = {
+                'nome': nome,
+                'nome_IsValid': 'is-valid' if nome_IsValid == True else 'is-invalid',
+                'nome_message': nome_message,
+                'tipopessoa': tipopessoa,
+                'tipopessoa_IsValid': 'is-valid' if tipopessoa_IsValid == True else 'is-invalid',
+                'tipopessoa_message': tipopessoa_message,
+                'cnpj': cnpj,
+                'cnpj_IsValid': 'is-valid' if cnpj_IsValid == True else 'is-invalid',
+                'cnpj_message': cnpj_message,
+                'cep': cep,
+                'cep_IsValid': 'is-valid' if cep_IsValid == True else 'is-invalid',
+                'cep_message': cep_message,
+                'estado': estado,
+                'estado_IsValid': 'is-valid' if estado_IsValid == True else 'is-invalid',
+                'estado_message': estado_message,
+                'cidade': cidade,
+                'cidade_IsValid': 'is-valid' if cidade_IsValid == True else 'is-invalid',
+                'cidade_message': cidade_message,
+                'bairro': bairro,
+                'bairro_IsValid': 'is-valid' if bairro_IsValid == True else 'is-invalid',
+                'bairro_message': bairro_message,
+                'endereco': endereco,
+                'endereco_IsValid': 'is-valid' if endereco_IsValid == True else 'is-invalid',
+                'endereco_message': endereco_message,
+                'telefone': telefone,
+                'telefone_IsValid': 'is-valid' if telefone_IsValid == True else 'is-invalid',
+                'telefone_message': telefone_message,
+            }
+            print(dados)
+            return render(request, 'usuarios/perfil.html', dados)
 
         user = request.user
 
         user.username = nome
         user.entidade.Nome = nome
+        user.entidade.TipoPessoa = tipopessoa
+        user.entidade.CpfCnpj = cnpj
+        user.entidade.Estado = estado
+        user.entidade.Cidade = cidade
+        user.entidade.Bairro = bairro
+        user.entidade.Endereco = endereco
+        user.entidade.Cep = cep
+        user.entidade.Telefone = telefone
+
         user.save()
         user.entidade.save()
-    
+        return redirect('index')
     return render(request, 'usuarios/perfil.html')
+
+@login_required
+def alterasenha(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        senha = request.POST['password']
+        senha2 = request.POST['confpassword']
+
+        email_IsValid = True
+        email_message = ""
+        senha_IsValid = True
+        senha_message = ""
+        senha2_IsValid = True
+        senha2_message = ""
+        currentUser = request.user.username
+        if not email.strip():
+            email_IsValid = False
+            email_message = "Informe o email"
+        elif User.objects.filter(email=email).exclude(username=currentUser).exists():
+            email_IsValid = False
+            email_message = "Email já cadastrado"
+        
+        if not senha.strip():
+            senha_IsValid = False
+            senha_message = "Informe a senha"
+        
+        if not senha2.strip():
+            senha2_IsValid = False
+            senha2_message = "Informe a senha"
+        elif senha != senha2:
+            senha2_IsValid = False
+            senha2_message = "Senhas não conferem"
+        
+        if (not email_IsValid or
+            not senha_IsValid or
+            not senha2_IsValid):
+            dados = {
+                'email': email,
+                'email_IsValid': 'is-valid' if email_IsValid == True else 'is-invalid',
+                'email_message': email_message,
+                'senha': senha,
+                'senha_IsValid': 'is-valid' if senha_IsValid == True else 'is-invalid',
+                'senha_message': senha_message,
+                'senha2': senha2,
+                'senha_IsValid': 'is_valid' if senha2_IsValid == True else 'is-invalid',
+                'senha_message': senha2_message
+            }
+            print(dados)
+            return render(request, 'usuarios/alterasenha.html', dados)
+        
+        user = request.user
+        user.email = email
+        user.set_password(senha)
+        user.save()
+        user.entidade.email = email
+        user.entidade.save()
+        user = authenticate(request, username=email, password=senha)
+        if user is not None:
+            auth_login(request, user)
+            return redirect('index')
+        return redirect('index')
+
+    return render(request, 'usuarios/alterasenha.html')
