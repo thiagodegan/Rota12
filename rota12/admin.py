@@ -6,7 +6,8 @@ class Entidades(admin.ModelAdmin):
     list_display = (
         'id', 'Nome', 'TipoPessoa', 'CpfCnpj',
         'Estado', 'Cidade', 'Bairro', 'Endereco',
-        'Cep', 'TipoEntidade', 'Email', 'Telefone',
+        'Cep', 'TipoEntidade', 'Email', 'Telefone', 
+        'Saldo',
         )
     list_display_links = ('id', 'Nome', 'CpfCnpj')
     search_fields = ('Nome','CpfCnpj')
@@ -14,10 +15,21 @@ class Entidades(admin.ModelAdmin):
 
 admin.site.register(Entidade, Entidades)
 
-class EntidadeUsers(admin.ModelAdmin):
+class Parametros(admin.ModelAdmin):
     list_display = (
-        'id', 'Entidade', 'User'
+        'id', 'Codigo', 'Acesso', 'Conteudo', 'ValorUm', 'ValorDois', 'ValorTres',
     )
-    list_display_links = ('id','Entidade', 'User')
+    list_display_links = ('id', 'Codigo', 'Acesso')
+    search_fields = ('Codigo', 'Acesso')
 
-admin.site.register(EntidadeUser, EntidadeUsers)
+admin.site.register(Parametro, Parametros)
+
+class Extratos(admin.ModelAdmin):
+    list_display = (
+        'id', 'Entidade', 'Data', 'Descricao', 'CreditoDebito', 'Valor',
+    )
+    list_display_links = ('id', 'Entidade', 'Data')
+    search_fields = ('Entidade__Nome', 'Data')
+    list_per_page = 20
+
+admin.site.register(Extrato, Extratos)

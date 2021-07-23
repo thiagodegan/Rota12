@@ -30,6 +30,7 @@
             </div>
             {% endif %}
         </div>
+        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
         <div class="row">
             <div class="col-6">
                 <a class="btn btn-lg" href="{% url 'cadastro' %}">Registrar</a>

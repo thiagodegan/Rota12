@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    {% include 'partials/_sidebar.html' %}
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Informa&ccedil;&otilde;es Pessoais</h4>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{% url 'perfil' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="username" class="col-4 col-form-label">Nome:</label> 
+                                <div class="col-8">
+                                    <input id="username" name="username" placeholder="Nome" class="form-control here {% if nome_IsValid %}{{ nome_IsValid }}{% endif %}" required="required" type="text" 
+                                    {% if nome %}
+                                    value="{{ nome }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Nome }}"
+                                    {% endif %}
+                                    >
+                                    {% if nome and nome_message != '' %}
+                                    <div id="validationServerNomeFeedback" class="invalid-feedback">
+                                        {{ nome_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tipopessoa" class="col-4 col-form-label">Tipo Pessoa:</label> 
+                                <div class="col-8">
+                                    <select id="tipopessoa" name="tipopessoa" class="form-select {% if tipopessoa_IsValid %}{{ tipopessoa_IsValid }}{% endif %}" required>
+                                        <option value="F" {% if user.entidade.TipoPessoa == 'F'%} selected {% endif %}>F&iacute;sica</option>
+                                        <option value="J" {% if user.entidade.TipoPessoa == 'J'%} selected {% endif %}>Juridica</option>
+                                    </select>
+                                    {% if tipopessoa and tipopessoa_message != '' %}
+                                    <div id="validationServerTipoPessoaFeedback" class="invalid-feedback">
+                                        {{ tipopessoa_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cnpjcpf" class="col-4 col-form-label">CNPJ/CPF:</label> 
+                                <div class="col-8">
+                                    <input id="cnpjcpf" name="cnpjcpf" placeholder="CNPJ/CPF" class="form-control here {% if cnpj_IsValid %}{{ cnpj_IsValid }}{% endif %}" required="required" type="text" 
+                                    {% if cnpj %}
+                                    value="{{ cnpj }}"
+                                    {% else %}
+                                    value="{{ user.entidade.CpfCnpj }}"
+                                    {% endif %}>
+                                    {% if cnpj and cnpj_message != '' %}
+                                    <div id="validationServerCnpjFeedback" class="invalid-feedback">
+                                        {{ cnpj_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cep" class="col-4 col-form-label">CEP:</label> 
+                                <div class="col-8">
+                                    <input id="cep" name="cep" placeholder="Cep" class="form-control here {% if cep_IsValid %}{{ cep_IsValid }}{% endif %}" required="required" type="text" 
+                                    {% if cep %}
+                                    value = "{{ cep }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Cep }}"
+                                    {% endif %}>
+                                    {% if cep and cep_message != '' %}
+                                    <div id="validationServerCepFeedback" class="invalid-feedback">
+                                        {{ cep_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="estado" class="col-4 col-form-label">Estado:</label> 
+                                <div class="col-8">
+                                    <input id="estado" name="estado" placeholder="Estado" class="form-control here {% if estado_IsValid %}{{ estado_IsValid }}{% endif %}" required="required" type="text" 
+                                    {% if estado %}
+                                    value = "{{ estado }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Estado }}"
+                                    {% endif %}>
+                                    {% if estado and estado_message != '' %}
+                                    <div id="validationServerEstadoFeedback" class="invalid-feedback">
+                                        {{ estado_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cidade" class="col-4 col-form-label">Cidade:</label> 
+                                <div class="col-8">
+                                    <input id="cidade" name="cidade" placeholder="Cidade" class="form-control here {% if cidade_IsValid %}{{ cidade_IsValid }}{% endif %}" required="required" type="text" 
+                                    {% if cidade %}
+                                    value = "{{ cidade }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Cidade }}"
+                                    {% endif %}>
+                                    {% if cidade and cidade_message != '' %}
+                                    <div id="validationServerCidadeFeedback" class="invalid-feedback">
+                                        {{ cidade_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="bairro" class="col-4 col-form-label">Bairro:</label> 
+                                <div class="col-8">
+                                    <input id="bairro" name="bairro" placeholder="Bairro" class="form-control here {% if bairro_IsValid %}{{ bairro_IsValid }}{% endif %}" required="required" type="text" 
+                                    {% if bairro %}
+                                    value = "{{ bairro }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Bairro }}"
+                                    {% endif %}>
+                                    {% if bairro and bairro_message != '' %}
+                                    <div id="validationServerBairroFeedback" class="invalid-feedback">
+                                        {{ bairro_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="endereco" class="col-4 col-form-label">Endere&ccedil;o:</label> 
+                                <div class="col-8">
+                                    <input id="endereco" name="endereco" placeholder="Endereço" class="form-control here {% if endereco_IsValid %}{{ endereco_IsValid }}{% endif %}" required="required" type="text" 
+                                    {% if endereco %}
+                                    value = "{{ endereco }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Endereco }}"
+                                    {% endif %}>
+                                    {% if endereco and endereco_message != '' %}
+                                    <div id="validationServerEnderecoFeedback" class="invalid-feedback">
+                                        {{ endereco_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="telefone" class="col-4 col-form-label">Telefone:</label> 
+                                <div class="col-8">
+                                    <input id="telefone" name="telefone" placeholder="Telefone" class="form-control here {% if telefone_IsValid %}{{ telefone_IsValid }}{% endif %}" required="required" type="text" 
+                                    {% if telefone %}
+                                    value = "{{ telefone }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Telefone }}"
+                                    {% endif %}>
+                                    {% if telefone and telefone_message != '' %}
+                                    <div id="validationServerTelefoneFeedback" class="invalid-feedback">
+                                        {{ telefone_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-4 col-8">
+                                  <button name="submit" type="submit" class="btn btn-primary">Atualizar</button>
+                                </div>
+                              </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        $('#mnInfo').addClass("active");
+    });
+</script>
+{% endblock %}

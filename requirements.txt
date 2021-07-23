@@ -16,3 +16,4 @@ typed-ast
 wrapt
 validate_docbr
 django-filter
+requests
