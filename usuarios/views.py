@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from rota12.models import Entidade
-from validate_docbr import CNPJ
+from validate_docbr import CNPJ, CPF
 
 # Create your views here.
 def cadastro(request):
@@ -160,8 +160,13 @@ def perfil(request):
             cnpj_IsValid = False
             cnpj_message = "Informe o CNPJ/CPF"
         elif tipopessoa == "F":
-            # TODO: #18 VALIDA SE É UM CPF VÁLIDO
-            pass
+            # #18 VALIDA SE É UM CPF VÁLIDO
+            validadorCpf = CPF()
+            cnpj = cnpj.strip().replace(".", "").replace("-", "").replace("/", "")
+            cnpj = validadorCpf.mask(cnpj)
+            if (not validadorCpf.validate(cnpj)):
+                cnpj_IsValid = False
+                cnpj_message = "CPF Inválido"
         elif tipopessoa == "J":
             # #19 VALIDA SE É UM CNPJ VÁLIDO
             validadorCnpj = CNPJ()
