@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from rota12.models import Entidade
 from validate_docbr import CNPJ, CPF
+from rota12.cepUtil import valida_cep, consulta
 
 # Create your views here.
 def cadastro(request):
@@ -182,23 +183,30 @@ def perfil(request):
             cep_IsValid = False
             cep_message = "Informe o CEP"
         else:
-            # TODO: #20 VERIFICAR SE É POSSÍVEL VALIDAR O CEP
-            pass
+            # #20 VERIFICAR SE É POSSÍVEL VALIDAR O CEP
+            if (valida_cep(cep)):
+                enderecoDic = consulta(cep)
+                if not enderecoDic.get('erro'):
+                    if enderecoDic.get('uf'):
+                        estado = enderecoDic.get('uf')
+                    if enderecoDic.get('localidade'):
+                        cidade = enderecoDic.get('localidade')
+                    if enderecoDic.get('bairro'):
+                        bairro = enderecoDic.get('bairro')
+                    if not endereco.strip():
+                        endereco = enderecoDic.get('endereco')
+            else:
+                cep_IsValid = False
+                cep_message = "CEP Inválido"
 
         if not estado.strip():
             estado_IsValid = False
             estado_message = "Informe o Estado"
-        else:
-            # TODO: #21 VERIFICAR SE É POSSÍVEL VALIDAR O ESTADO
-            pass
-
+        
         if not cidade.strip():
             cidade_IsValid = False
             cidade_message = "Informe a Cidade"
-        else:
-            # TODO: #22 VERIFICAR SE É POSSÍVEL VALIDAR A CIDADE
-            pass
-
+        
         if not bairro.strip():
             bairro_IsValid = False
             bairro_message = "Informe o Bairro"
