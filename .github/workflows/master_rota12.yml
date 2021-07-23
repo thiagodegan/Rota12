@@ -59,4 +59,4 @@ jobs:
         with:
           app-name: 'rota12'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_0db54f2d45104bb89720de66ba3ea668 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_497f105e9d45484994e8b2cf5bac7a14 }}
