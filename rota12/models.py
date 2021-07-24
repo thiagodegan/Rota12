@@ -23,6 +23,8 @@ class Entidade(models.Model):
     Cidade = models.CharField(max_length=150)
     Bairro = models.CharField(max_length=300)
     Endereco = models.CharField(max_length=300)
+    Numero = models.CharField(max_length=20, blank=False, null=False, default='0')
+    Complemento = models.CharField(max_length=100, blank=True, null=False, default='')
     Cep = models.CharField(max_length=9)
     TipoEntidade = models.CharField(max_length=1, choices=TIPO_ENTIDAE, blank=False, null=False, default='R')
     Email = models.CharField(max_length=300)

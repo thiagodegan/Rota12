@@ -145,6 +145,33 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="numero" class="col-4 col-form-label">N&uacute;mero:</label>
+                                <div class="col-8">
+                                    <input id="numero" name="numero" placeholder="Número" class="form-control here {% if numero_IsValid %}{{ numero_IsValid }}{% endif %}" required="required" type="text"
+                                    {% if numero %}
+                                    value="{{ numero }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Numero }}"
+                                    {% endif %}>
+                                    {% if numero and numero_message != '' %}
+                                    <div id="validadionServerNumeroFeedback" class="invalid-feedback">
+                                        {{ numero_message }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="complemento" class="col-4 col-form-label">Complemento:</label>
+                                <div class="col-8">
+                                    <input id="complemento" name="complemento" placeholder="Complemento" class="form-control here"
+                                    {% if complemento %}
+                                    value="{{ complemento }}"
+                                    {% else %}
+                                    value="{{ user.entidade.Complemento }}"
+                                    {% endif %}>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="telefone" class="col-4 col-form-label">Telefone:</label> 
                                 <div class="col-8">
                                     <input id="telefone" name="telefone" placeholder="Telefone" class="form-control here {% if telefone_IsValid %}{{ telefone_IsValid }}{% endif %}" required="required" type="text" 

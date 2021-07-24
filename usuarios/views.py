@@ -125,6 +125,8 @@ def perfil(request):
         cidade = request.POST['cidade']
         bairro = request.POST['bairro']
         endereco = request.POST['endereco']
+        numero = request.POST['numero']
+        complemento = request.POST['complemento']
         telefone = request.POST['telefone']
 
         nome_IsValid = True
@@ -143,6 +145,8 @@ def perfil(request):
         bairro_message = True
         endereco_IsValid = True
         endereco_message = ""
+        numero_IsValid = True
+        numero_message = ""
         telefone_IsValid = True
         telefone_message = ""
 
@@ -215,6 +219,10 @@ def perfil(request):
             endereco_IsValid = False
             endereco_message = "Informe o Endereço"
 
+        if not numero.strip():
+            numero_IsValid = False
+            numero_message = "Informe o Número"
+
         if not telefone.strip():
             telefone_IsValid = False
             telefone_message = "Informe o Telefone"
@@ -227,6 +235,7 @@ def perfil(request):
             not cidade_IsValid or
             not bairro_IsValid or
             not endereco_IsValid or
+            not numero_IsValid or
             not telefone_IsValid):
             dados = {
                 'nome': nome,
@@ -253,6 +262,10 @@ def perfil(request):
                 'endereco': endereco,
                 'endereco_IsValid': 'is-valid' if endereco_IsValid == True else 'is-invalid',
                 'endereco_message': endereco_message,
+                'numero': numero,
+                'numero_IsValid': 'is-valid' if numero_IsValid == True else 'is-invalid',
+                'numero_message': numero_message,
+                'complemento': complemento,
                 'telefone': telefone,
                 'telefone_IsValid': 'is-valid' if telefone_IsValid == True else 'is-invalid',
                 'telefone_message': telefone_message,
@@ -270,6 +283,8 @@ def perfil(request):
         user.entidade.Cidade = cidade
         user.entidade.Bairro = bairro
         user.entidade.Endereco = endereco
+        user.entidade.Numero = numero
+        user.entidade.Complemento = complemento
         user.entidade.Cep = cep
         user.entidade.Telefone = telefone
 
