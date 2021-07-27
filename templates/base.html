@@ -10,6 +10,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.svg' %}"/>
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/kendo/kendo.bootstrap-v4.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/site.css' %}" />
 </head>
 <body>
@@ -27,8 +28,13 @@
     </main>
 
     {% include 'partials/_footer.html' %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <script src="{% static 'js/kendo/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/kendo/kendo.all.min.js' %}"></script>
+    <script src="{% static 'js/kendo/cultures/kendo.culture.pt-BR.min.js'%}"></script>
+    <script src="{% static 'js/kendo/messages/kendo.messages.pt-BR.min.js'%}"></script>
+    <script>kendo.culture('pt-BR')</script>
     {% block scripts %} {% endblock scripts %}
 </body>
 </html>
