@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <!-- INCLUI MENU LATERAL DA TELA DE PERFIL -->
+    {% include 'partials/_sidebar.html' %}
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <h4>Extrato</h4>
+                    </div>
+                    <div class="col-3">
+                        <a class="btn btn-primary float-end" href="#">Comprar Cr&eacute;dito</a>
+                    </div>
+                    <hr class="mt-1" />
+                </div>
+                <div id="loader-box" class="row">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-grow" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="data-box" class="row not-visible">
+                    <table id="tableData" class="table table-light table-striped table-hover" >
+                        <thead class="table-dark">
+                            <th scope="col">Data</th>
+                            <th scope="col">Descri&ccedil;&atilde;o</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Status</th>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        $('#mnExtrato').addClass("active");
+        $.ajax({
+            type: 'GET',
+            url: `{% url 'extratojson' %}`,
+            success: function(response){
+                console.log(response);
+                var data = response.conteudo;
+                console.log(data);
+                var r = new Array(), j = -1;
+                for(var key=0, size=data.length;key<size;key++){
+                    r[++j] = '<tr><td>';
+                    r[++j] = new Date(data[key].Data).toLocaleString("pt-br");
+                    r[++j] = '</td><td>';
+                    r[++j] = data[key].Descricao;
+                    r[++j] = '</td><td>';
+                    r[++j] = data[key].Valor;
+                    r[++j] = '</td><td>';
+                    r[++j] = data[key].Desc_Status;
+                    r[++j] = '</td></tr>'
+                }
+                $('#tableBody').html(r.join(''));
+                $('#data-box').removeClass('not-visible');
+                $('#loader-box').addClass('not-visible');
+            },
+            error: function(response) {
+                console.log(response);
+                $('#data-box').removeClass('not-visible');
+                $('#loader-box').addClass('not-visible');
+            }
+        })
+    });
+</script>
+{% endblock scripts %}

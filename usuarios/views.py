@@ -1,11 +1,13 @@
-from django.http import request
+from django.http import request, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from rota12.models import Entidade
+from django.core.serializers.json import DjangoJSONEncoder
+from rota12.models import Entidade, Extrato
 from validate_docbr import CNPJ, CPF
 from rota12.cepUtil import valida_cep, consulta
+import json
 
 # Create your views here.
 def cadastro(request):
@@ -355,3 +357,26 @@ def alterasenha(request):
         return redirect('index')
 
     return render(request, 'usuarios/alterasenha.html')
+
+@login_required
+def extrato(request):
+    return render(request, 'usuarios/extrato.html')
+
+@login_required
+def extrato_json(request):
+    extrato = Extrato.objects.all().filter(Entidade=request.user.entidade).order_by('-Data')
+    list_result = [{
+        'id': entry.id, 
+        'Data': entry.Data, 
+        'Descricao': entry.Descricao, 
+        'CreditoDebito': entry.CreditoDebito,
+        'Desc_CreditoDebito': entry.get_CreditoDebito_display(),
+        'Status': entry.Status,
+        'Desc_Status': entry.get_Status_display(),
+        'Valor': entry.Valor * (-1 if entry.CreditoDebito == 'D' else 1)} for entry in extrato]
+    dados = {
+        'result': 'sucesso',
+        'message': 'JSON executado com sucesso!',
+        'conteudo': list_result
+    }
+    return JsonResponse(dados, safe=True, encoder=DjangoJSONEncoder)
