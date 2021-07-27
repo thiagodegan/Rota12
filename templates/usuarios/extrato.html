@@ -35,6 +35,9 @@
                         <tbody id="tableBody"></tbody>
                     </table>
                 </div>
+                <div class="row">
+                    <div id="grid"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -74,7 +77,49 @@
                 $('#data-box').removeClass('not-visible');
                 $('#loader-box').addClass('not-visible');
             }
-        })
+        });
+        $('#grid').kendoGrid({
+            dataSource: {   
+              transport: {   
+                read: {
+                  url: "{% url 'extratojson' %}",
+                  data: {
+                    tags: "nature",
+                    format: "json"
+                  },
+                  dataType: "json", 
+                  jsonp: "jsoncallback",
+                }
+              },
+              schema: {
+                data: "conteudo",
+                model: {
+                  fields: {
+                    Data: {type: "date"},
+                    Descricao: {type: "string"},
+                    Valor: {type: "number"},
+                    Desc_Status: {type: "string"}
+                  }
+                }
+              }
+            },
+            columns: [{
+                field: "Data",
+                title: "Data"
+            }, {
+                field: "Descricao",
+                title: "Descrição"
+            }, {
+                field: "Valor",
+                title: "Valor"
+            }, {
+                field: "Desc_Status",
+                title: "Status"
+            }],
+            scrollable: true,
+            sortable: true,
+            pageable: true
+        });
     });
 </script>
 {% endblock scripts %}
