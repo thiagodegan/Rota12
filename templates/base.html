@@ -32,6 +32,9 @@
     <script src="{% static 'js/kendo/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/kendo/kendo.all.min.js' %}"></script>
+    <script src="{% static 'js/kendo/cultures/kendo.culture.pt-BR.min.js'%}"></script>
+    <script src="{% static 'js/kendo/messages/kendo.messages.pt-BR.min.js'%}"></script>
+    <script>kendo.culture('pt-BR')</script>
     {% block scripts %} {% endblock scripts %}
 </body>
 </html>

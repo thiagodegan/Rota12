@@ -7,7 +7,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from rota12.models import Entidade, Extrato
 from validate_docbr import CNPJ, CPF
 from rota12.cepUtil import valida_cep, consulta
-import json
+from django.utils.formats import localize
 
 # Create your views here.
 def cadastro(request):
@@ -373,10 +373,10 @@ def extrato_json(request):
         'Desc_CreditoDebito': entry.get_CreditoDebito_display(),
         'Status': entry.Status,
         'Desc_Status': entry.get_Status_display(),
-        'Valor': entry.Valor * (-1 if entry.CreditoDebito == 'D' else 1)} for entry in extrato]
+        'Valor': localize(entry.Valor * (-1 if entry.CreditoDebito == 'D' else 1))} for entry in extrato]
     dados = {
         'result': 'sucesso',
         'message': 'JSON executado com sucesso!',
         'conteudo': list_result
     }
-    return JsonResponse(dados, safe=True, encoder=DjangoJSONEncoder)
+    return JsonResponse(list_result, safe=False, encoder=DjangoJSONEncoder)
