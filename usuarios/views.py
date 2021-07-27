@@ -1,11 +1,13 @@
-from django.http import request
+from django.http import request, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from rota12.models import Entidade
+from django.core.serializers.json import DjangoJSONEncoder
+from rota12.models import Entidade, Extrato
 from validate_docbr import CNPJ, CPF
 from rota12.cepUtil import valida_cep, consulta
+import json
 
 # Create your views here.
 def cadastro(request):
@@ -125,6 +127,8 @@ def perfil(request):
         cidade = request.POST['cidade']
         bairro = request.POST['bairro']
         endereco = request.POST['endereco']
+        numero = request.POST['numero']
+        complemento = request.POST['complemento']
         telefone = request.POST['telefone']
 
         nome_IsValid = True
@@ -143,6 +147,8 @@ def perfil(request):
         bairro_message = True
         endereco_IsValid = True
         endereco_message = ""
+        numero_IsValid = True
+        numero_message = ""
         telefone_IsValid = True
         telefone_message = ""
 
@@ -215,6 +221,10 @@ def perfil(request):
             endereco_IsValid = False
             endereco_message = "Informe o Endereço"
 
+        if not numero.strip():
+            numero_IsValid = False
+            numero_message = "Informe o Número"
+
         if not telefone.strip():
             telefone_IsValid = False
             telefone_message = "Informe o Telefone"
@@ -227,6 +237,7 @@ def perfil(request):
             not cidade_IsValid or
             not bairro_IsValid or
             not endereco_IsValid or
+            not numero_IsValid or
             not telefone_IsValid):
             dados = {
                 'nome': nome,
@@ -253,6 +264,10 @@ def perfil(request):
                 'endereco': endereco,
                 'endereco_IsValid': 'is-valid' if endereco_IsValid == True else 'is-invalid',
                 'endereco_message': endereco_message,
+                'numero': numero,
+                'numero_IsValid': 'is-valid' if numero_IsValid == True else 'is-invalid',
+                'numero_message': numero_message,
+                'complemento': complemento,
                 'telefone': telefone,
                 'telefone_IsValid': 'is-valid' if telefone_IsValid == True else 'is-invalid',
                 'telefone_message': telefone_message,
@@ -270,6 +285,8 @@ def perfil(request):
         user.entidade.Cidade = cidade
         user.entidade.Bairro = bairro
         user.entidade.Endereco = endereco
+        user.entidade.Numero = numero
+        user.entidade.Complemento = complemento
         user.entidade.Cep = cep
         user.entidade.Telefone = telefone
 
@@ -340,3 +357,26 @@ def alterasenha(request):
         return redirect('index')
 
     return render(request, 'usuarios/alterasenha.html')
+
+@login_required
+def extrato(request):
+    return render(request, 'usuarios/extrato.html')
+
+@login_required
+def extrato_json(request):
+    extrato = Extrato.objects.all().filter(Entidade=request.user.entidade).order_by('-Data')
+    list_result = [{
+        'id': entry.id, 
+        'Data': entry.Data, 
+        'Descricao': entry.Descricao, 
+        'CreditoDebito': entry.CreditoDebito,
+        'Desc_CreditoDebito': entry.get_CreditoDebito_display(),
+        'Status': entry.Status,
+        'Desc_Status': entry.get_Status_display(),
+        'Valor': entry.Valor * (-1 if entry.CreditoDebito == 'D' else 1)} for entry in extrato]
+    dados = {
+        'result': 'sucesso',
+        'message': 'JSON executado com sucesso!',
+        'conteudo': list_result
+    }
+    return JsonResponse(dados, safe=True, encoder=DjangoJSONEncoder)

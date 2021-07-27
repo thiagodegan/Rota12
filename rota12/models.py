@@ -23,6 +23,8 @@ class Entidade(models.Model):
     Cidade = models.CharField(max_length=150)
     Bairro = models.CharField(max_length=300)
     Endereco = models.CharField(max_length=300)
+    Numero = models.CharField(max_length=20, blank=False, null=False, default='0')
+    Complemento = models.CharField(max_length=100, blank=True, null=False, default='')
     Cep = models.CharField(max_length=9)
     TipoEntidade = models.CharField(max_length=1, choices=TIPO_ENTIDAE, blank=False, null=False, default='R')
     Email = models.CharField(max_length=300)
@@ -60,11 +62,17 @@ class Extrato(models.Model):
         ('C', 'Crédito'),
         ('D', 'Débito')
     )
+    STATUS = (
+        ('P', 'Pendente'),
+        ('A', 'Aprovado'),
+        ('R', 'Recusado')
+    )
     Entidade = models.ForeignKey(Entidade, on_delete=models.CASCADE)
     Data = models.DateTimeField(auto_now=True, null=False, blank=False)
     Descricao = models.CharField(max_length=500, blank=False, null=False)
     CreditoDebito = models.CharField(max_length=1, choices=CREDITO_DEBITO, blank=False, null=False, default='C')
     Valor = models.DecimalField(max_digits=15, decimal_places=2, null=False, blank=False, default=0)
+    Status = models.CharField(max_length=1, choices=STATUS, blank=False, null=False, default='P')
 
     def __str__(self):
         return self.Descricao
