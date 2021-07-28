@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rota12',
     'usuarios',
+    'checkout',
     'rest_framework',
     'django_filters',
 ]
