@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <form id="formCredito"></form>
+    
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script>
+    $('#formCredito').kendoForm({
+        formData: {
+            Descricao: "Compra de Crédito"
+        },
+        items: [{
+            field: "Descricao",
+            label: "Descrição",
+            validation: { required: true }
+        }, {
+            field: "Valor",
+            label: "Valor",
+            editor: "NumericTextBox",
+            validation: { required: true }
+        }],
+        submit: function(ev) {
+/* The result can be observed in the DevTools(F12) console of the browser. */
+            ev.preventDefault();
+            console.log(ev.model);
+        }
+    });
+</script>
+
+{% endblock scripts %}
