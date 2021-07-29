@@ -12,6 +12,8 @@
 {% block scripts %}
 
 <script>
+    var csrf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
+    
     $('#formCredito').kendoForm({
         formData: {
             Descricao: "Compra de Crédito"
@@ -30,6 +32,21 @@
 /* The result can be observed in the DevTools(F12) console of the browser. */
             ev.preventDefault();
             console.log(ev.model);
+            $.ajax({
+                url: `{% url 'cart-json' %}`,
+                data: JSON.stringify(ev.model),
+                method: "POST",
+                dataType: 'json',
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (err) {
+                    console.log('Deu erro');
+                    console.log(err.responseJSON);
+                },
+            });
         }
     });
 </script>
